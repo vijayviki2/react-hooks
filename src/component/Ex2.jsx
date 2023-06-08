@@ -32,22 +32,30 @@ function Ex2(props) {
    //useEffect => api call,intial values
     const getPosts = async () => {
         await fetch(`${url}/posts`)
-        .then(res => res.json())
-        .then(out => {
+        .then(res => res.json())   
+        .then(out => {              /*resolved state*/
             // console.log('output =', out)
             setPosts(out)
-        }).catch(err => console.log(err.message))
+        }).catch(err => console.log(err.message)) // reject state
     }
 
     useEffect(() => {
         getPosts()
         const endOffset = itemOffset + props.itemPerPage
-        console.log(`init offset = ${itemOffset} - end offset =${endOffset}`)
+        // console.log(`init offset = ${itemOffset} - end offset =${endOffset}`)
         const data = posts.slice(itemOffset,endOffset)
         setCurrentItems(data)
         const pCount = Math.ceil(posts.length / props.itemPerPage)
         setPageCount(pCount)
     },[posts])
+
+    //page click handle, e = event
+    const handler = (e) => {
+        console.log('item = ',e.selected)
+        const newOffset = Number(e.selected * props.itemPerPage)  % posts.length;
+        console.log('newOffset =', newOffset)
+        setItemOffset(newOffset)
+    }
 
   return (
     <div className='container'>
@@ -80,8 +88,22 @@ function Ex2(props) {
        <div className="row">
         <div className="col-md-12">
      
+     
+        <ReactPaginate 
+        pageCount={pageCount}
+        className='pagination'
+        pageClassName='page-item'
+        pageLinkClassName='page-link'
+        nextClassName='page-item'
+        nextLinkClassName='page-link'
+        previousClassName='page-item'
+        previousLinkClassName='page-link'
+        activeClassName='active'
+        activeLinkClassName='active'
+        onPageChange={handler}
+        
+        />
 
-        <ReactPaginate pageCount={pageCount}/>
         </div>
        </div>
     </div>
