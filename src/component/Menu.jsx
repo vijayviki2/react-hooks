@@ -23,6 +23,12 @@ function Menu() {
                     <li className="nav-item">
                     <NavLink to={`/ex4`} className="nav-link">Ex4</NavLink>
                     </li>
+                    <li className="nav-item">
+                    <NavLink to={`/ex5`} className="nav-link">Ex5</NavLink>
+                    </li>
+                    <li className="nav-item">
+                    <NavLink to={`/ex6`} className="nav-link">Ex6</NavLink>
+                    </li>
                 </ul>
             </div>
             </div>
